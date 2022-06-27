@@ -1,0 +1,24 @@
+{
+    "defaultEnv": {
+        "ENV": "NODE_ENV"
+    },
+    "dev": {
+        "driver": "pg",
+        "host": {
+            "ENV": "MONGO_HOST"
+        },
+        "port": {
+            "ENV": "PORT"
+        },
+        "database": {
+            "ENV": "MONGO_DATABASE"
+        },
+        "user": {
+            "ENV": "MONGO_USER"
+        },
+        "password": {
+            "ENV": "MONGO_PASSWORD"
+        }
+
+    }
+}
