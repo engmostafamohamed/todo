@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
 import UserModel from "../../models/user.model";
+import User from "../../models/Schema";
 // import config from "../../config";
 const userModel = new UserModel();
 export const createUser = async (
@@ -21,9 +22,38 @@ export const createUser = async (
     next(error);
   }
 };
-// export const createUser: RequestHandler = (req, res) => {
-//   res.json("create");
-// };
+export const createUser2: RequestHandler = (req, res) => {
+  async(u: User): Promise<void> {
+    // id: req.body.id,
+    title: req.body.title,
+    desc: req.body.desc,
+    isComplete: req.body.isComplete,
+    // createdAt: req.body.createdAt,
+    // moifiedAt: req.body.modifiedAdt,
+ }
+  const user = new :({
+    // id: req.body.id,
+    title: req.body.title,
+    desc: req.body.desc,
+    isComplete: req.body.isComplete,
+    // createdAt: req.body.createdAt,
+    // moifiedAt: req.body.modifiedAdt,
+  });
+  user.save((err, result) => {
+    if (err) {
+      console.log(err);
+      // res.redirect('/');
+      next(err);
+    } else {
+      // console.log(result);
+      // res.redirect('/getusers');
+      res.status(200).json({
+        message: "post is added",
+      });
+      // mongoose.disconnect();
+    }
+  });
+};
 
 export const getMany = async (
   _: Request,
