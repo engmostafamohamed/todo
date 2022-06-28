@@ -2,120 +2,55 @@ import { Request, Response, NextFunction, RequestHandler } from "express";
 import UserModel from "../../models/user.model";
 import User from "../../models/Schema";
 // import config from "../../config";
-const userModel = new UserModel();
-export const createUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const user = await userModel.create(req.body);
-    console.log("22");
 
-    res.json({
-      status: "success",
-      data: { ...user },
-      message: "User created successfully",
-    });
-  } catch (error) {
-    console.log("11");
-    next(error);
-  }
-};
-export const createUser2: RequestHandler = (req, res) => {
-  async(u: User): Promise<void> {
-    // id: req.body.id,
-    title: req.body.title,
-    desc: req.body.desc,
-    isComplete: req.body.isComplete,
-    // createdAt: req.body.createdAt,
-    // moifiedAt: req.body.modifiedAdt,
- }
-  const user = new :({
-    // id: req.body.id,
-    title: req.body.title,
-    desc: req.body.desc,
-    isComplete: req.body.isComplete,
-    // createdAt: req.body.createdAt,
-    // moifiedAt: req.body.modifiedAdt,
-  });
-  user.save((err, result) => {
+//Get /book return all user
+export let getMany2 = (req: Request, res: Response) => {
+  let user = User.find((err: any, users: any) => {
     if (err) {
-      console.log(err);
-      // res.redirect('/');
-      next(err);
+      res.send(err);
     } else {
-      // console.log(result);
-      // res.redirect('/getusers');
-      res.status(200).json({
-        message: "post is added",
-      });
-      // mongoose.disconnect();
+      res.send(users);
     }
   });
 };
-
-export const getMany = async (
-  _: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const users = await userModel.getMany();
-    res.json({
-      status: "success",
-      data: users,
-      message: "User retrieved successfully",
-    });
-  } catch (error) {
-    next(error);
-  }
+//Get /book return user with id
+export let getOne2 = (req: Request, res: Response) => {
+  User.findById(req.params.id, (err: any, users: any) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(users);
+    }
+  });
 };
-export const getOne = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const user = await userModel.getOne(req.params.id as unknown as string);
-    res.json({
-      status: "success",
-      data: user,
-      message: "User retrieved successfully",
-    });
-  } catch (error) {
-    next(error);
-  }
+//put /add new user to database
+export let addOne2 = (req: Request, res: Response) => {
+  let user = new User(req.body);
+  user.save((err: any) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(user);
+    }
+  });
 };
-export const updateOne = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const user = await userModel.updateOne(req.body);
-    res.json({
-      status: "success",
-      data: { user },
-      message: "User updated successfully",
-    });
-  } catch (error) {
-    next(error);
-  }
+//delete /deleted user from database
+export let deleteOne = (req: Request, res: Response) => {
+  User.deleteOne({ _id: req.params.id }, (err: any) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send("Succesfully deleted the user");
+    }
+  });
 };
-export const deleteOne = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const user = await userModel.deleteOne(req.params.id as unknown as string);
-    res.json({
-      status: "success",
-      data: user,
-      message: "User retrieved successfully",
-    });
-  } catch (error) {
-    next(error);
-  }
+//update /update user with id
+export let updateOne = (req: Request, res: Response) => {
+  User.findByIdAndUpdate(req.params.id, req.body, (err: any) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send("Succesfully update the user");
+    }
+  });
 };

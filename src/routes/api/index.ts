@@ -1,12 +1,12 @@
 import { Router } from "express";
 import * as control from "../../controllers/users/index";
-
+import * as bodyParser from "body-parser";
 const router: Router = Router();
-
-router.get("/getusers", control.createUser2);
-router.get("/getuser/:id", control.getOne);
-router.post("/createusers", control.createUser);
+router.use(bodyParser.json());
+router.get("/getusers", control.getMany2);
+router.get("/getuser/:id", control.getOne2);
+router.put("/createusers", control.addOne2);
 router.delete("/deleteusers/:id", control.deleteOne);
-router.put("/updateusers/:id", control.updateOne);
+router.post("/updateusers/:id", control.updateOne);
 
 export default router;
