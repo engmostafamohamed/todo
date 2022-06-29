@@ -1,6 +1,6 @@
 import { model, Schema } from "mongoose";
 
-const userSchema: Schema = new Schema(
+const taskSchema: Schema = new Schema(
   {
     title: {
       type: String,
@@ -28,4 +28,4 @@ const userSchema: Schema = new Schema(
   { timestamps: true }
 );
 
-export default model("User", userSchema);
+export default model("Task", taskSchema);

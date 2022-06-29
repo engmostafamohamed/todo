@@ -74,7 +74,7 @@ class UserModel {
     }
   }
   // delete user
-  async deleteOne(id: string): Promise<User> {
+  async deleteOne(id: string): Promise<void> {
     try {
       const connection = await DB.connect();
       const sql = `DELETE  FROM users WHERE id =($1)
