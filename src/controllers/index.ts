@@ -7,7 +7,7 @@ import User from "../models/Schema";
 // import { ITodo } from "./../../types/todo"
 // import config from "../../config";
 
-//Get /book return all task
+//Get / return all task
 export let getAllTask2 = (req: Request, res: Response) => {
   let user = User.find((err: any, users: any) => {
     if (err) {
@@ -46,7 +46,7 @@ export let getOneTask = async (req: Request, res: Response): Promise<void> => {
   }
 };
 //put /add new task to database
-export let addTask2 = (req: Request, res: Response) => {
+export let addTask2 = (req: Request, res: Response, next: NextFunction) => {
   let task = new Task(req.body);
   task.save((err: any) => {
     if (err) {
@@ -55,9 +55,21 @@ export let addTask2 = (req: Request, res: Response) => {
       res.send(task);
     }
   });
+  // const task = {
+  //   title: req.body.title,
+  //   body: req.body.body,
+  // };
+  // Task.addOne(task, (err: any, task: any) => {
+  //   if (err) next(err);
+  //   if (task) res.status(200).json({ message: "post is added" });
+  // });
 };
 //put /add new task to database
-export let addTask = async (req: Request, res: Response): Promise<void> => {
+export let addTask = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   try {
     const body = req.body as Pick<Types, "title" | "desc" | "isComplete">;
 
@@ -78,13 +90,16 @@ export let addTask = async (req: Request, res: Response): Promise<void> => {
   }
 };
 //delete /deleted user from database
-export let deleteOneTask = (req: Request, res: Response) => {
-  User.deleteOne({ _id: req.params.id }, (err: any) => {
-    if (err) {
-      res.send(err);
-    } else {
-      res.send("Succesfully deleted the user");
-    }
+export let deleteOneTask = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  Task.deleteOne({ _id: req.params.id }, (err: any, post: any) => {
+    if (err) next(err);
+    post
+      ? res.status(200).json({ message: "Task is deleted" })
+      : res.status(404).json({ message: "Task not found" });
   });
 };
 //delete /deleted task from database
@@ -108,12 +123,24 @@ export let deleteOneTask2 = async (
   }
 };
 // update task with id
-export let updateOneTask2 = (req: Request, res: Response) => {
-  User.findByIdAndUpdate(req.params.id, req.body, (err: any) => {
-    if (err) {
-      res.send(err);
+export let updateOneTask2 = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  User.findByIdAndUpdate(req.params.id, req.body, (err: any, post: any) => {
+    // if (err) {
+    //   res.send(err);
+    // } else {
+    //   res.send("Succesfully update the task");
+    // }
+    if (err) next(err);
+    if (post) {
+      res.status(200);
+      res.json({ message: "task is updated" });
     } else {
-      res.send("Succesfully update the user");
+      res.status(404);
+      res.json({ message: "task not found" });
     }
   });
 };
