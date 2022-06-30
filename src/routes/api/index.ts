@@ -1,11 +1,13 @@
 import { Router } from "express";
 import * as control from "../../controllers/index";
 import * as bodyParser from "body-parser";
+// import validate from "../../middlewares/validations/index";
+const validate = require("../../middlewares/validations/index");
 const router: Router = Router();
 router.use(bodyParser.json());
 router.get("/getusers", control.getAllTask);
-router.get("/getusers", control.getAllTask2);
-router.get("/getuser/:id", control.getOneTask);
+router.get("/getusers2", control.getAllTask2);
+router.get("/getuser/:id", validate.getOne, control.getOneTask);
 router.get("/getuser2/:id", control.getOneTask2);
 router.put("/createtask1", control.addTask);
 router.put("/createtask2", control.addTask2);
@@ -15,3 +17,4 @@ router.post("/updateusers/:id", control.updateOneTask);
 router.post("/updateusers2/:id", control.updateOneTask2);
 
 export default router;
+// module.exports = router;
