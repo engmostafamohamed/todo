@@ -71,6 +71,8 @@ export let addTask = async (
   next: NextFunction
 ): Promise<void> => {
   try {
+    console.log(req.body);
+
     const body = req.body as Pick<Types, "title" | "desc" | "isComplete">;
 
     const todo: Types = new Task({
@@ -84,7 +86,7 @@ export let addTask = async (
 
     res
       .status(201)
-      .json({ message: "Todo added", todo: newTodo, todos: allTodos });
+      .json({ message: "task added", todo: newTodo, todos: allTodos });
   } catch (error) {
     throw error;
   }
