@@ -1,19 +1,18 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
-import UserModel from "../models/user.model";
+
 import Task from "../models/Schema";
 import { Types } from "../types/type";
 
-import User from "../models/Schema";
 // import { ITodo } from "./../../types/todo"
 // import config from "../../config";
 
 //Get / return all task
 export let getAllTask2 = (req: Request, res: Response) => {
-  let user = User.find((err: any, users: any) => {
+  let task = Task.find((err: any, tasks: any) => {
     if (err) {
       res.send(err);
     } else {
-      res.send(users);
+      res.send(tasks);
     }
   });
 };
@@ -130,7 +129,7 @@ export let updateOneTask2 = (
   res: Response,
   next: NextFunction
 ) => {
-  User.findByIdAndUpdate(req.params.id, req.body, (err: any, post: any) => {
+  Task.findByIdAndUpdate(req.params.id, req.body, (err: any, post: any) => {
     // if (err) {
     //   res.send(err);
     // } else {

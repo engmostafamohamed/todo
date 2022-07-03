@@ -1,5 +1,6 @@
 import { Router } from "express";
-import * as control from "../../controllers/index";
+import * as control from "../../controllers/task";
+import * as usercontrol from "../../controllers/user";
 import * as bodyParser from "body-parser";
 import * as Validate from "../../middlewares/validations/index";
 // const validate = require("../../middlewares/validations/index");
@@ -31,6 +32,12 @@ router.post(
   Validate.validate.updateOne,
   control.updateOneTask2
 );
+router.post("/api/login", usercontrol.login);
+router.post("/api/register", usercontrol.register);
+router.post("/api/change-password", usercontrol.changePassword);
+// router.get(`/api/register`, async (req, res) => {
+//   res.json({ message: "Welcome to bezkoder application." });
+// });
 
 export default router;
 // module.exports = router;
