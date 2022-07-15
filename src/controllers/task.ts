@@ -37,7 +37,6 @@ export let getOneTask2 = (req: Request, res: Response) => {
     const { id } = decoded;
     // console.log(id);
     Task.findById(id, (err: any, post: any) => {
-      // if (err) next(err);
       if (post) {
         res.send(post);
       } else {
