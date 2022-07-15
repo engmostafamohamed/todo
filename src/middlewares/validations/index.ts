@@ -34,11 +34,11 @@ const rules = {
     return;
   },
   doc: (req: Request, res: Response, next: NextFunction) => {
-    if (req.body.doc) {
-      if (req.body.doc.length >= 10) {
+    if (req.body.desc) {
+      if (req.body.desc.length >= 10) {
         next({
           name: "Validation Error",
-          element: "body: doc",
+          element: "body: desc",
           message: "It can contain maximum 10 characters",
         });
         return;
